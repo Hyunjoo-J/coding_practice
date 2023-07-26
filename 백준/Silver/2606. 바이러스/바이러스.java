@@ -1,17 +1,18 @@
 import java.io.*;
 import java.util.*;
 
-public class Main{
+public class Main {
     static int n;
-    static int  m;
+    static int m;
     static int[][] arr;
     static int[] visited;
     static int ans;
-    public static void main(String[] args) throws IOException{
+
+    public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         n = Integer.parseInt(br.readLine());
         m = Integer.parseInt(br.readLine());
-        arr = new int[n+1][n+1];
+        arr = new int[n + 1][n + 1];
         int c1, c2;
         StringTokenizer st;
         visited = new int[n + 1];
@@ -26,21 +27,14 @@ public class Main{
         System.out.println(ans);
 
     }
-    public static void bfs(int v){
-        Queue<Integer> q = new LinkedList<>();
-        q.add(v);
+
+    public static void bfs(int v) {
         visited[v] = 1;
-        while(!q.isEmpty()){
-            v = q.poll();
-            for(int i = 1; i <= n; i++){
-                if (visited[i] == 0 && arr[v][i] == 1){
-                    q.add(i);
-                    ans++;
-                    visited[i] = 1;
-                }
+        for (int i = 1; i <= n; i++) {
+            if (visited[i] == 0 && arr[v][i] == 1) {
+                ans++;
+                bfs(i);
             }
         }
-
     }
-
 }
