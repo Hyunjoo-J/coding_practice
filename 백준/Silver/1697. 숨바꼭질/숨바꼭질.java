@@ -2,7 +2,6 @@ import java.io.*;
 import java.util.*;
 
 public class Main {
-    static int min = Integer.MAX_VALUE;
     static int n,m;
     static int[] visited = new int[100001];
     public static void main(String[] args) throws IOException{
