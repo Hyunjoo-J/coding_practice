@@ -66,7 +66,7 @@ public class Main {
 			return;
 		}
 		for(int i = start; i < idx; i++) {
-			sel[cnt] = i; //i번째 치킨집이 사라짐
+			sel[cnt] = i;
 			comb(cnt+1, i + 1);
 		}
 	}
