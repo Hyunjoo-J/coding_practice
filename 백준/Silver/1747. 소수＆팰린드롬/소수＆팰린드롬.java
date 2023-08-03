@@ -4,7 +4,7 @@ public class Main {
 	public static void main(String[] args) throws IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		int n = Integer.parseInt(br.readLine());
-		if(n == 1) {
+		if(n == 1 || n == 2) {
 			System.out.println("2");
 			return;
 		}
@@ -20,8 +20,6 @@ public class Main {
 	}
 	
 	private static boolean isPrime(int num) {
-		if(num == 2)
-			return true;
 		if(num % 2 == 0 || num == 1)
 			return false;
 		for(int i = 3; i *i <= num; i += 2) {
