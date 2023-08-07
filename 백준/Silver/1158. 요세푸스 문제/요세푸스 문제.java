@@ -16,19 +16,18 @@ public class Main {
 		sb.append("<");
 		int del = k;
 		int idx;
-		int size;
-		while(list.size() != 0) {
-			size = list.size();
+		int size = list.size();
+		while(size > 0) {
 			idx = (del - 1 + size) % size;
-			sb.append(list.get(idx));
+			sb.append(list.remove(idx));
 			if(size == 1) {
 				sb.append(">");
 			}else {
 				sb.append(", ");
 			}
-			list.remove(idx);
-			if(list.size() != 0)
-				del = (idx + k) % list.size();
+			size--;
+			if(size != 0)
+				del = (idx + k) % size;
 		}
 		System.out.println(sb.toString());
 	}
