@@ -9,7 +9,7 @@ public class Main {
 			return tree[node] = arr[start];	
 		}else {	
 			int mid = (start+end)>>1;
-			int nn = node * 2;
+			int nn = node << 1;
 			return tree[node] = init(nn, start, mid) + init(nn+1, mid+1, end);
 		}
 		
@@ -21,8 +21,8 @@ public class Main {
 		if(left <= start && end <= right) {
 			return tree[node];
 		}
-		int mid = (start+end)/2;
-		int nn = node*2;
+		int mid = (start+end)>>1;
+		int nn = node<<1;
 		return sum(nn, start, mid, left, right) + sum(nn+1, mid+1, end, left, right);
 		
 	}
@@ -34,13 +34,12 @@ public class Main {
 			tree[node] = value;
 		} else {
 			int mid = (start + end)>>1;
-			update(node*2, start, mid, index, value);
-			update(node*2 + 1, mid + 1, end, index, value);
-			tree[node] = tree[node * 2] + tree[node * 2 + 1];
+			update(node<<1, start, mid, index, value);
+			update((node<<1) + 1, mid + 1, end, index, value);
+			tree[node] = tree[node<<1] + tree[(node<<1) + 1];
 		}
 	}
 	public static void main(String[] args) throws Exception {
-		// TODO Auto-generated method stub
 		BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
 		BufferedWriter out = new BufferedWriter(new OutputStreamWriter(System.out));
 		StringTokenizer st = new StringTokenizer(in.readLine());
