@@ -2,20 +2,21 @@ import java.io.*;
 import java.util.*;
 
 public class Main {
-	static long arr[];	
+	static long arr[];
 	static long tree[];	
+
 	static long init(int node, int start, int end) {
 		if(start == end) {
-			return tree[node] = arr[start];	
+			return tree[node] = arr[start];
 		}else {	
 			int mid = (start+end)>>1;
-			int nn = node << 1;
+			int nn = node<<1;
 			return tree[node] = init(nn, start, mid) + init(nn+1, mid+1, end);
 		}
 		
 	}
 	static long sum(int node, int start, int end, int left, int right) {
-		if(left > end || right < start) {	//구간 합을 구할 범위 밖
+		if(left > end || right < start) {
 			return 0;
 		}
 		if(left <= start && end <= right) {
@@ -27,16 +28,14 @@ public class Main {
 		
 	}
 	
-	static void update (int node, int start, int end, int index, long value) {
+	static void update (int node, int start, int end, int index, long diff) {
 		if(index < start || index > end)
 			return;
-		if (start == end) {
-			tree[node] = value;
-		} else {
+		tree[node] += diff;
+		if(start != end) {
 			int mid = (start + end)>>1;
-			update(node<<1, start, mid, index, value);
-			update((node<<1) + 1, mid + 1, end, index, value);
-			tree[node] = tree[node<<1] + tree[(node<<1) + 1];
+			update(node<<1, start, mid, index, diff);
+			update((node<<1) + 1, mid + 1, end, index, diff);
 		}
 	}
 	public static void main(String[] args) throws Exception {
@@ -60,7 +59,8 @@ public class Main {
 			int a = Integer.parseInt(st.nextToken());
 			long b = Long.parseLong(st.nextToken());
 			if(command == 1) {
-				update(1, 0 , N - 1, a - 1, b);
+				update(1, 0 , N - 1, a - 1, b-arr[a-1]);
+				arr[a-1] = b;
 			}else {
 				out.write(sum(1, 0, N - 1, a - 1, (int)b - 1)+"\n");
 			}
