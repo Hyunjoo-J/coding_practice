@@ -18,6 +18,8 @@ public class Main {
 			st = new StringTokenizer(br.readLine());
 			for (int j = 0; j < m; ++j) {
 				map[i][j] = Integer.parseInt(st.nextToken());
+				if (map[i][j] == 1)
+					++enemy;
 			}
 		}
 		combi(0, 0);
@@ -30,7 +32,7 @@ public class Main {
 			for(int i = 0; i < n; ++i) {
 				tmp[i] = map[i].clone();
 			}
-			ans = Math.max(ans, attack(tmp));
+			ans = Math.max(ans, attack(tmp, enemy));
 			return;
 		}
 		for (int i = start; i < m; ++i) {
@@ -39,10 +41,12 @@ public class Main {
 		}
 	}
 
-	private static int attack(int[][] map) {
+	private static int attack(int[][] map, int enemy) {
 		int sum = 0;
 		int[][] info = new int[3][3];
 		for (int turn = 0; turn < n; ++turn) {
+			if(enemy == 0)
+				return sum;
 			info[0][0] = -1;
 			info[1][0] = -1;
 			info[2][0] = -1;
@@ -72,6 +76,7 @@ public class Main {
 				if(info[k][0] != -1 && map[info[k][0]][info[k][1]] == 1) {
 					map[info[k][0]][info[k][1]] = 0;
 					++sum;
+					--enemy;
 				}	
 			}
 		}
