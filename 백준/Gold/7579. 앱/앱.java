@@ -8,7 +8,7 @@ public class Main {
         int m = Integer.parseInt(st.nextToken());
         int[] mem = new int[n];
         int[] cost = new int[n];
-        int[][] dp = new int[n][100001];
+        int[][] dp = new int[n][10001];
         st = new StringTokenizer(br.readLine());
         for(int i = 0; i < n; ++i)
             mem[i] = Integer.parseInt(st.nextToken());
@@ -23,7 +23,7 @@ public class Main {
         for(int i = 0; i < n; ++i){
             int me = mem[i];
             int c = cost[i];
-            for(int j = 0; j < 100001; ++j){
+            for(int j = 0; j < 10001; ++j){
                 if(i == 0){
                     if(j >= c)
                         dp[i][j] = me;
