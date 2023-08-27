@@ -13,7 +13,6 @@ public class Solution {
 
     static int N, num, ans, max;
     static int[][] map;
-    static boolean[][] visited;
     static Core[] core;
     static int[] dx = {-1, 0, 1, 0};
     static int[] dy = {0, -1, 0, 1};
@@ -26,7 +25,6 @@ public class Solution {
         for (int tc = 1; tc <= T; ++tc) {
             N = Integer.parseInt(br.readLine());
             map = new int[N][N];
-            visited = new boolean[N][N];
             core = new Core[12];
             num = 0;
             ans = Integer.MAX_VALUE;
@@ -37,11 +35,9 @@ public class Solution {
                     map[i][j] = Integer.parseInt(st.nextToken());
                     if (map[i][j] == 1) {
                         if (i == 0 || j == 0 || i == N - 1 || j == N - 1) {
-                            visited[i][j] = true;
                             ++max;
                         } else {
                             core[num] = new Core(i, j);
-                            visited[i][j] = true;
                             ++num;
                         }
                     }
@@ -69,7 +65,6 @@ public class Solution {
                 continue;
             }
             boolean flag = false;
-            int t = 1;
             int nx = core[dep].x, ny = core[dep].y;
             while(true){
                 nx += dx[i];
@@ -78,20 +73,21 @@ public class Solution {
                     flag = true;
                     break;
                 }
-                if(visited[nx][ny] || map[nx][ny] == 1){
+                if(map[nx][ny] != 0){
                     break;
                 }
-                visited[nx][ny] = true;
+                map[nx][ny] = 2;
                 ++len;
-                ++t;
             }
             if(flag){
                 dfs(dep + 1, use + 1, len);
             }
-            for(int k = t - 1; k > 0; --k){
-                nx = core[dep].x + dx[i] * k;
-                ny = core[dep].y + dy[i] * k;
-                visited[nx][ny] = false;
+            while(true) { // 원 상태로 돌려놓기
+                nx -= dx[i];
+                ny -= dy[i];
+                if(nx == core[dep].x && ny == core[dep].y)
+                    break;
+                map[nx][ny] = 0;
                 --len;
             }
         }
