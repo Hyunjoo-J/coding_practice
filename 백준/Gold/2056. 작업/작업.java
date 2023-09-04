@@ -35,7 +35,6 @@ public class Main {
 			int cur = q.poll();
 			for (int tmp : list[cur]) {
 				dp[tmp] = Math.max(dp[tmp], dp[cur] + time[tmp]);
-//				System.out.println(tmp + " " + time[tmp] + " "+dp[tmp]);
 				ans = Math.max(ans, dp[tmp]);
 				if (--degree[tmp] == 0) {
 					q.offer(tmp);
