@@ -1,57 +1,50 @@
+import java.util.*;
 import java.io.*;
-import java.util.Arrays;
-import java.util.StringTokenizer;
-
 public class Main {
-    static int[] arr;
-    static int n,c;
-    public static void main(String[] args) throws IOException {
+    static int N, C;
+    static  int[] arr;
+    public static void main(String[] args) throws IOException{
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
-        StringTokenizer st = new StringTokenizer(br.readLine(), " ");
-        n = Integer.parseInt(st.nextToken());
-        c = Integer.parseInt(st.nextToken());
-        arr = new int[n];
-        for (int i = 0; i < n; i++) {
+        StringTokenizer st = new StringTokenizer(br.readLine());
+        N = Integer.parseInt(st.nextToken());
+        C = Integer.parseInt(st.nextToken());
+        arr = new int[N];
+        for(int i = 0; i < N; ++i){
             arr[i] = Integer.parseInt(br.readLine());
         }
-
         Arrays.sort(arr);
+        System.out.println(binarySearch(1, arr[N - 1]));
 
-        bw.write(binarySearch(1, arr[arr.length - 1]));
-        bw.flush();
-
-        bw.close();
-        br.close();
     }
 
-    private static String binarySearch(int start, int end){
-        int answer = 0;
+    //이분탐색으로 가능한 최대 거리를 찾음
+    private static int binarySearch(int start, int end) {
+        int ans = 0;
         while(start <= end){
-            int mid = (start + end) / 2;
+            int mid = (start + end) >> 1;
 
-            if(canInstall(mid) < c){
+            if(install(mid) < C){
                 end = mid - 1;
             }else{
-                answer = mid;
+                ans = mid;
                 start = mid + 1;
             }
         }
-        return String.valueOf(answer);
+        return ans;
     }
 
-    private static int canInstall(int dist){
-        int count = 1; //시작하는 집 무조건 설치
-        int lastInstall = arr[0];
+    //dist 길이의 공유기로 모든 집을 커버할 수 있는가
+    private static int install(int dist) {
+        int cnt = 1;
+        int last = arr[0];
+        for(int i = 0; i < N; ++i){
+            int to = arr[i];
 
-        for(int i = 1; i< arr.length; i++){
-            int toLocate = arr[i];
-
-            if(toLocate - lastInstall >= dist){
-                count += 1;
-                lastInstall = toLocate;
+            if(to - last >= dist){
+                ++cnt;
+                last = to;
             }
         }
-        return count;
+        return cnt;
     }
 }
