@@ -35,18 +35,18 @@ public class Main {
         int N, next;
         char[] type = new char[1001];
         int[] cost = new int[1001];
-        List<Integer>[] list = new ArrayList[1001];
+        List<List<Integer>> list = new ArrayList<>(1001);
         for (int i = 0; i < 1001; ++i)
-            list[i] = new ArrayList<>();
+            list.add(new ArrayList<>());
         while ((N = Integer.parseInt(br.readLine())) != 0) {
             for (int i = 1; i <= N; ++i)
-                list[i] = new ArrayList<>();
+                list.get(i).clear();
             for (int i = 1; i <= N; ++i) {
                 st = new StringTokenizer(br.readLine());
                 type[i] = st.nextToken().charAt(0);
                 cost[i] = Integer.parseInt(st.nextToken());
                 while ((next = Integer.parseInt(st.nextToken())) != 0) {
-                    list[i].add(next);
+                    list.get(i).add(next);
                 }
             }
             if (check(list, N, type, cost)) {
@@ -58,7 +58,7 @@ public class Main {
         System.out.print(sb);
     }
 
-    private static boolean check(List<Integer>[] list, int N, char[] type, int[] cost) {
+    private static boolean check(List<List<Integer>> list, int N, char[] type, int[] cost) {
         ArrayDeque<Node> q = new ArrayDeque<>();
         q.add(new Node(1, 0));
         boolean[][] visited = new boolean[N + 1][501]; //레프리콘이 채워줄 수 있는 최대 금액 500
@@ -68,7 +68,7 @@ public class Main {
             if(cur.v == N)
                 return true;
             int price = 0;
-            for(int next : list[cur.v]){
+            for(int next : list.get(cur.v)){
                 switch (type[next]){
                     case EMPTY :
                         price = cur.w;
