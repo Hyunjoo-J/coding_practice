@@ -9,7 +9,6 @@ public class Main {
 			System.out.println(N);
 			return;
 		}
-		
 		N--;
 		
 		long[][] origin = {{1,1},{1,0}};
@@ -32,8 +31,6 @@ public class Main {
 		ret[0][1] = (m1[0][0]*m2[0][1] + m1[0][1]*m2[1][1]) % MOD;
 		ret[1][0] = (m1[1][0]*m2[0][0] + m1[1][1]*m2[1][0]) % MOD;
 		ret[1][1] = (m1[1][0]*m2[0][1] + m1[1][1]*m2[1][1]) % MOD;
-		
 		return ret;
 	}
-
 }
